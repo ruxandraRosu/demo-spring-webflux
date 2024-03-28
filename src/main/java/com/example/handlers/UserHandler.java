@@ -60,7 +60,7 @@ public class UserHandler {
 
         if (seconds != null) {
             log.info("{} thread", Thread.currentThread());
-            myService.doWork();
+//            myService.doWork();
             return ServerResponse.ok()
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(Mono.just(Thread.currentThread().toString()), String.class);
