@@ -6,8 +6,7 @@ spring.kafka.producer.value-serializer: org.springframework.kafka.support.serial
   
 coinbase.endpoint: wss://ws-feed.exchange.coinbase.com
 coinbase-rest.endpoint: https://api.exchange.coinbase.com
-#coinbase.message: "{/"type/": /"subscribe/",/"product_ids/": [/"BTC-USD/",/"ETH-USD/",/"LTC-USD/",/"DOGE-USD/",/"SHIB-USD/"],/"channels/": [/"ticker/"]}"
-#coinbase.matcher-message: "{/"type/": /"subscribe/",/"product_ids/": [/"BTC-USD/",/"ETH-USD/",/"LTC-USD/"],/"channels/": [/"matches/"]}"
-
 coinbase.message: '{"type": "subscribe","product_ids": ["BTC-USD","ETH-USD","LTC-USD","DOGE-USD","SHIB-USD"],"channels": ["ticker"]}'
 coinbase.matcher-message: '{"type": "subscribe","product_ids": ["BTC-USD","ETH-USD","LTC-USD"],"channels": ["matches"]}'
+
+application.websockets.enabled: true
