@@ -1,7 +1,13 @@
 server.port: 8090
-spring:
-  kafka:
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      bootstrap-servers: localhost:9092
+  
+spring.kafka.producer.bootstrap-servers: localhost:9092
+spring.kafka.producer.key-serializer: org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  
+coinbase.endpoint: wss://ws-feed.exchange.coinbase.com
+coinbase-rest.endpoint: https://api.exchange.coinbase.com
+#coinbase.message: "{/"type/": /"subscribe/",/"product_ids/": [/"BTC-USD/",/"ETH-USD/",/"LTC-USD/",/"DOGE-USD/",/"SHIB-USD/"],/"channels/": [/"ticker/"]}"
+#coinbase.matcher-message: "{/"type/": /"subscribe/",/"product_ids/": [/"BTC-USD/",/"ETH-USD/",/"LTC-USD/"],/"channels/": [/"matches/"]}"
+
+coinbase.message: '{"type": "subscribe","product_ids": ["BTC-USD","ETH-USD","LTC-USD","DOGE-USD","SHIB-USD"],"channels": ["ticker"]}'
+coinbase.matcher-message: '{"type": "subscribe","product_ids": ["BTC-USD","ETH-USD","LTC-USD"],"channels": ["matches"]}'
