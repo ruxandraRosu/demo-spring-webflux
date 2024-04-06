@@ -48,9 +48,8 @@ public class TradesService {
                 .map(Trade.TradeBuilder::build);
     }
 
-    public Disposable publishMessage(Mono<Trade> trade) {
-        return kafkaService.sendMessage(trade)
-                .subscribe();
+    public void publishMessage(Trade trade) {
+         kafkaService.sendMessage(trade);
     }
 
     public Mono<ProductInfo> getProductInfo(String productId) {
