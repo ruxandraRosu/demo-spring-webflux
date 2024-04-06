@@ -41,10 +41,9 @@ public class MatchService {
                                 .filter(v -> !v.contains("subscriptions"))
                                 .mapNotNull(mappingResolver::mapStringToMatch)
                                 .map(mappingResolver::mapMatchToTrade)
-//                                .zipWith(trade -> myService.getProduct(trade), (trade, product) -> Trade.builder()::product(product))
                                 .map(tradesService::decorateTrade)
                                 .map(tradesService::publishMessage)
-//                                .doOnNext(tradeFlux::push)
+//                                .doOnNext(tradeFlux::push) //TODO
                         )
                         .then()
         );
