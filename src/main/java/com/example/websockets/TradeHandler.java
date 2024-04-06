@@ -4,6 +4,7 @@ import com.example.model.MappingResolver;
 import com.example.model.SubscribeMessage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 import org.springframework.web.reactive.socket.WebSocketMessage;
@@ -15,6 +16,7 @@ import reactor.core.publisher.Mono;
 @Component
 @Slf4j
 @AllArgsConstructor
+@ConditionalOnProperty(prefix = "application.websockets", name = "enabled", havingValue = "true")
 public class TradeHandler implements WebSocketHandler {
 
     private final MappingResolver mapper;
