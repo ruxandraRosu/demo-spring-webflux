@@ -1,8 +1,6 @@
 package com.example.configuration;
 
-import com.example.handlers.UserHandler;
 import com.example.model.SubscriberInfo;
-import com.example.service.TradesService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -27,7 +25,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
-import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 
@@ -39,19 +36,6 @@ public class AppConfig {
                 request -> ServerResponse.ok()
                         .contentType(MediaType.TEXT_PLAIN)
                         .body(Mono.just("Hello, Reactive World!"), String.class));
-    }
-
-    @Bean
-    public RouterFunction<ServerResponse> userRoutes(UserHandler handler) {
-        return route(GET("/people"), handler::getAllUsers)
-                .andRoute(GET("/people/{id}"), handler::getUser)
-                .andRoute(GET("/delay/{seconds}"), handler::delay)
-                .andRoute(POST("/people"), handler::createUser);
-    }
-
-    @Bean
-    public UserHandler userHandler(TradesService tradesService) {
-        return new UserHandler(tradesService);
     }
 
     @Bean
@@ -68,16 +52,16 @@ public class AppConfig {
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .build();
     }
-    
+
     @Bean
     public ReactiveKafkaProducerTemplate<String, String> reactiveKafkaProducer(KafkaProperties properties) {
-
         Map<String, Object> props = properties.buildProducerProperties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092"); //TODO
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-
-        return new ReactiveKafkaProducerTemplate<String, String>(SenderOptions.create(props));
+        props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 500);
+        props.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 500);
+        return new ReactiveKafkaProducerTemplate<>(SenderOptions.create(props));
     }
 
     @Bean
