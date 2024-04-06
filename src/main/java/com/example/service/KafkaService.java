@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.reactive.ReactiveKafkaProducerTemplate;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 @Slf4j
 @AllArgsConstructor
@@ -19,11 +18,11 @@ public class KafkaService {
     private ReactiveKafkaProducerTemplate<String, String> reactiveKafkaProducer;
     private ObjectMapper mapper;
 
-    public Mono sendMessage(Mono<Trade> trade) {
-
-        return trade.map(this::getValueAsString)
-                .flatMap(message -> reactiveKafkaProducer.send(TOPIC_NAME_TRADES, message))
-                .doOnNext(message -> log.info("After kafka" + message.toString()));
+    public void sendMessage(Trade trade) {
+        String message = getValueAsString(trade);
+        reactiveKafkaProducer.send(TOPIC_NAME_TRADES, message)
+                .onErrorMap(e -> new RuntimeException("Unable to publish message", e))
+                .subscribe();
     }
 
     private String getValueAsString(Trade trade) {
