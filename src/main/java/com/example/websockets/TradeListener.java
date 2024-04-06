@@ -4,6 +4,7 @@ import com.example.model.SubscribeMessage;
 import com.example.model.SubscriberInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketSession;
 import reactor.core.publisher.FluxSink;
@@ -13,6 +14,7 @@ import java.util.Map;
 @Component
 @AllArgsConstructor
 @Slf4j
+@ConditionalOnProperty(prefix = "application.websockets", name = "enabled", havingValue = "true")
 public class TradeListener {
 
     private final Map<String, SubscriberInfo> subscribersMap;
