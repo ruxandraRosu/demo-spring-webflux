@@ -1,5 +1,8 @@
-launchctl limit maxfiles 400000 unlimited
-sudo launchctl limit maxfiles 400000 unlimited
-ulimit -Sn 4096  
 
-https://unix.stackexchange.com/questions/108174/how-to-persistently-control-maximum-system-resource-consumption-on-mac
+http://localhost:8080/ui/docker-kafka-server/topic
+
+https://docs.cloud.coinbase.com/exchange/reference
+
+Source of data: https://api.exchange.coinbase.com/products/ETH-USD/stats
+REST endpoints:
+http://localhost:8090/api/products/ETH-USD/info
