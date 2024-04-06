@@ -5,6 +5,7 @@ import com.example.model.SubscriberInfo;
 import com.example.model.response.Trade;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.Map;
 @Component
 @Slf4j
 @AllArgsConstructor
+@ConditionalOnProperty(prefix = "application.websockets", name = "enabled", havingValue = "true")
 public class TradeFlux {
 
     private final Map<String, SubscriberInfo> subscribersMap;
