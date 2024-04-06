@@ -53,7 +53,6 @@ public class TradesService {
                 .subscribe();
     }
 
-
     public Mono<ProductInfo> getProductInfo(String productId) {
         Mono<Stats> stats = getProductStats(productId);
         Mono<Product> product = getProduct(productId);
