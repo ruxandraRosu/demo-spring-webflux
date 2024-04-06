@@ -2,6 +2,7 @@ package com.example.websockets;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.HandlerMapping;
@@ -15,6 +16,7 @@ import java.util.Map;
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
+@ConditionalOnProperty(prefix = "application.websockets", name = "enabled", havingValue = "true")
 public class WebSocketConfiguration implements WebFluxConfigurer {
 
     @Bean
