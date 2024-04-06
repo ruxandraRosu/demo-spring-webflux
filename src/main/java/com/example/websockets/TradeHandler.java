@@ -29,7 +29,6 @@ public class TradeHandler implements WebSocketHandler {
                 .flatMap(message -> register(webSocketSession, message))
                 .log();
 
-
         return webSocketSession.send(bridge
                         .map(webSocketSession::textMessage)
                         .doFinally(signal -> tradeListener.unregister(webSocketSession))
