@@ -1,7 +1,7 @@
-package com.example.controller;
+package com.techconnect.controller;
 
-import com.example.model.ProductInfo;
-import com.example.service.TradesService;
+import com.techconnect.model.ProductInfo;
+import com.techconnect.service.TradesService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

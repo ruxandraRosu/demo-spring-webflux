@@ -1,6 +1,6 @@
-package com.example.service;
+package com.techconnect.service;
 
-import com.example.model.response.Trade;
+import com.techconnect.model.response.Trade;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaService {
 
-    public static final String TOPIC_NAME = "topic-name";
     public static final String TOPIC_NAME_TRADES = "topic-trades";
     private ReactiveKafkaProducerTemplate<String, String> reactiveKafkaProducer;
     private ObjectMapper mapper;

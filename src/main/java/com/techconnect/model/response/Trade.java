@@ -1,6 +1,6 @@
-package com.example.model.response;
+package com.techconnect.model.response;
 
-import com.example.model.Product;
+import com.techconnect.model.Product;
 import lombok.Builder;
 import lombok.Data;
 

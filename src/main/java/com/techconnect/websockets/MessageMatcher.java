@@ -1,6 +1,6 @@
-package com.example.websockets;
+package com.techconnect.websockets;
 
-import com.example.model.response.Trade;
+import com.techconnect.model.response.Trade;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

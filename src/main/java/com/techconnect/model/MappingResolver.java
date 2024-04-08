@@ -1,6 +1,6 @@
-package com.example.model;
+package com.techconnect.model;
 
-import com.example.model.response.Trade;
+import com.techconnect.model.response.Trade;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,9 +13,7 @@ import java.time.OffsetDateTime;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class MappingResolver {
-
-    private final ObjectMapper objectMapper;
+public record MappingResolver(ObjectMapper objectMapper) {
 
     public Match mapStringToMatch(String v) {
         try {

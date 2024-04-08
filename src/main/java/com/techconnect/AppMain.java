@@ -1,4 +1,4 @@
-package com.example;
+package com.techconnect;
 
 
 import org.springframework.boot.SpringApplication;

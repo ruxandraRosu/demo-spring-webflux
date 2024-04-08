@@ -1,9 +1,8 @@
-package com.example.model;
+package com.techconnect.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
 @Getter

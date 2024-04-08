@@ -1,8 +1,8 @@
-package com.example.service;
+package com.techconnect.service;
 
 
-import com.example.model.MappingResolver;
-import com.example.websockets.TradeFlux;
+import com.techconnect.model.MappingResolver;
+import com.techconnect.websockets.TradeFlux;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,24 +35,22 @@ public class MatchService {
     public void afterInit() {
         WebSocketClient client = new ReactorNettyWebSocketClient();
         Mono<Void> result = client.execute(URI.create(url),
-                (session) -> {
-                    return session.send(Mono.just(session.textMessage(matcherMessage)))
-                            .ignoreElement()
-                            .thenMany(session.receive()
-                                    .map(WebSocketMessage::getPayloadAsText)
-                                    .log()
-                                    .filter(v -> !v.contains("subscriptions"))
-                                    .mapNotNull(mappingResolver::mapStringToMatch)
-                                    .map(mappingResolver::mapMatchToTrade)
-                                    .flatMap(tradesService::decorateTrade)
-                                    .flatMap(trade -> {
-                                        tradesService.publishMessage(trade);
-                                        return Mono.just(trade);
-                                    })
-                                    .doOnNext(tradeFlux::push)
-                            )
-                            .then();
-                }
+                (session) -> session.send(Mono.just(session.textMessage(matcherMessage)))
+                        .ignoreElement()
+                        .thenMany(session.receive()
+                                .map(WebSocketMessage::getPayloadAsText)
+                                .log()
+                                .filter(v -> !v.contains("subscriptions"))
+                                .mapNotNull(mappingResolver::mapStringToMatch)
+                                .map(mappingResolver::mapMatchToTrade)
+                                .flatMap(tradesService::decorateTrade)
+                                .flatMap(trade -> {
+                                    tradesService.publishMessage(trade);
+                                    return Mono.just(trade);
+                                })
+                                .doOnNext(tradeFlux::push)
+                        )
+                        .then()
         );
         result.subscribe();
     }

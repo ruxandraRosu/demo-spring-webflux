@@ -1,4 +1,4 @@
-package com.example.websockets;
+package com.techconnect.websockets;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

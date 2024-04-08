@@ -1,6 +1,6 @@
-package com.example.configuration;
+package com.techconnect.configuration;
 
-import com.example.model.SubscriberInfo;
+import com.techconnect.model.SubscriberInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

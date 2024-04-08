@@ -1,4 +1,4 @@
-package com.example.model;
+package com.techconnect.model;
 
 import lombok.Builder;
 import lombok.Data;

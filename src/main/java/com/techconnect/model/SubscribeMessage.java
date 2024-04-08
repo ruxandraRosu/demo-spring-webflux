@@ -1,4 +1,4 @@
-package com.example.model;
+package com.techconnect.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
