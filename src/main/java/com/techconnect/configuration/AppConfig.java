@@ -1,6 +1,6 @@
 package com.techconnect.configuration;
 
-import com.techconnect.model.SubscriberInfo;
+import com.techconnect.websockets.SubscriberInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -30,14 +30,6 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 @Configuration
 public class AppConfig {
-    @Bean
-    public RouterFunction<ServerResponse> routeHelloWorld() {
-        return route(GET("/hello"),
-                request -> ServerResponse.ok()
-                        .contentType(MediaType.TEXT_PLAIN)
-                        .body(Mono.just("Hello, Reactive World!"), String.class));
-    }
-
     @Bean
     public WebClient webClient(@Value("${coinbase-rest.endpoint}") String endpoint) {
         HttpClient httpClient = HttpClient.create(ConnectionProvider.builder("myConnectionProvider")

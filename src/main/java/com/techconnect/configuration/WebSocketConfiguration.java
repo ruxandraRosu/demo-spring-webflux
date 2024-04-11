@@ -1,5 +1,6 @@
-package com.techconnect.websockets;
+package com.techconnect.configuration;
 
+import com.techconnect.websockets.TradeHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

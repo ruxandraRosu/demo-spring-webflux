@@ -1,7 +1,6 @@
 package com.techconnect.websockets;
 
 import com.techconnect.model.MappingResolver;
-import com.techconnect.model.SubscriberInfo;
 import com.techconnect.model.response.Trade;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +13,11 @@ import java.util.Map;
 @Slf4j
 @AllArgsConstructor
 @ConditionalOnProperty(prefix = "application.websockets", name = "enabled", havingValue = "true")
-public record TradeFlux(Map<String, SubscriberInfo> subscribersMap,
-                        MappingResolver mapper, MessageMatcher matcher) {
+public class TradeFlux {
+
+   private final MappingResolver mapper;
+   private final MessageMatcher matcher;
+   private final Map<String, SubscriberInfo> subscribersMap;
 
     public void push(Trade trade) {
         subscribersMap.entrySet().stream()

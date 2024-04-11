@@ -1,10 +1,9 @@
 package com.techconnect.service;
 
 import com.techconnect.model.Product;
-import com.techconnect.model.ProductInfo;
+import com.techconnect.model.response.ProductInfo;
 import com.techconnect.model.Stats;
 import com.techconnect.model.response.Trade;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,31 +13,32 @@ import reactor.core.publisher.Mono;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class TradesService {
+public class TradeService {
 
     private final WebClient webClient;
     private final KafkaService kafkaService;
-    private ObjectMapper mapper;
+    private final Product emptyProduct = new Product();
+    private final Stats emptyStats = new Stats();
+
+
 
     public Mono<Product> getProduct(String productId) {
-        log.info("Before rest call {} for tradeId {}", Thread.currentThread(), productId);
         return webClient.get()
                 .uri("/products/" + productId)
                 .retrieve()
                 .bodyToMono(Product.class)
-                .onErrorMap(RuntimeException::new);
+                .onErrorReturn(emptyProduct);
     }
 
     public Mono<Stats> getProductStats(String productId) {
-        log.info("Before rest call {} for productId {}", Thread.currentThread(), productId);
         return webClient.get()
                 .uri("/products/" + productId + "/stats")
                 .retrieve()
                 .bodyToMono(Stats.class)
-                .onErrorMap(RuntimeException::new);
+                .onErrorReturn(emptyStats);
     }
 
-    public Mono<Trade> decorateTrade(Trade trade) {
+    public Mono<Trade> enrichTrade(Trade trade) {
         Mono<Trade> tradeMono = Mono.just(trade);
         Mono<Product> productMono = getProduct(trade.getGridKey());
         return Mono.just(Trade.builder())

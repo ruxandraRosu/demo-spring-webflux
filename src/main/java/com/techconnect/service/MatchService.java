@@ -28,8 +28,7 @@ public class MatchService {
     private String matcherMessage;
     private final MappingResolver mappingResolver;
     private final TradeFlux tradeFlux;
-    private final TradesService tradesService;
-
+    private final TradeService tradeService;
 
     @PostConstruct
     public void afterInit() {
@@ -43,9 +42,9 @@ public class MatchService {
                                 .filter(v -> !v.contains("subscriptions"))
                                 .mapNotNull(mappingResolver::mapStringToMatch)
                                 .map(mappingResolver::mapMatchToTrade)
-                                .flatMap(tradesService::decorateTrade)
+                                .flatMap(tradeService::enrichTrade)
                                 .flatMap(trade -> {
-                                    tradesService.publishMessage(trade);
+                                    tradeService.publishMessage(trade);
                                     return Mono.just(trade);
                                 })
                                 .doOnNext(tradeFlux::push)

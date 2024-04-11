@@ -1,7 +1,6 @@
 package com.techconnect.websockets;
 
-import com.techconnect.model.SubscribeMessage;
-import com.techconnect.model.SubscriberInfo;
+import com.techconnect.model.request.SubscribeMessage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,7 +14,9 @@ import java.util.Map;
 @AllArgsConstructor
 @Slf4j
 @ConditionalOnProperty(prefix = "application.websockets", name = "enabled", havingValue = "true")
-public record TradeListener(Map<String, SubscriberInfo> subscribersMap) {
+public class TradeListener {
+
+    private final Map<String, SubscriberInfo> subscribersMap;
 
     public void register(WebSocketSession session, FluxSink<String> sink, SubscribeMessage message) {
         subscribersMap.put(session.getId(), new SubscriberInfo(message, sink));

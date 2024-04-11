@@ -1,7 +1,7 @@
 package com.techconnect.websockets;
 
 import com.techconnect.model.MappingResolver;
-import com.techconnect.model.SubscribeMessage;
+import com.techconnect.model.request.SubscribeMessage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -17,8 +17,10 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @AllArgsConstructor
 @ConditionalOnProperty(prefix = "application.websockets", name = "enabled", havingValue = "true")
-public record TradeHandler(MappingResolver mapper,
-                           TradeListener tradeListener) implements WebSocketHandler {
+public class TradeHandler implements WebSocketHandler {
+
+    private final MappingResolver mapper;
+    private final TradeListener tradeListener;
 
     @Override
     public Mono<Void> handle(WebSocketSession webSocketSession) {

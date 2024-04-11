@@ -1,7 +1,7 @@
 package com.techconnect.controller;
 
-import com.techconnect.model.ProductInfo;
-import com.techconnect.service.TradesService;
+import com.techconnect.model.response.ProductInfo;
+import com.techconnect.service.TradeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +14,13 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @AllArgsConstructor
 @RequestMapping("api")
-public class TradesController {
-    private TradesService tradesService;
+public class TradeController {
 
+    private TradeService tradeService;
 
     @GetMapping("/products/{productId}/info")
     public Mono<ProductInfo> getProductStats(@PathVariable String productId) {
-        log.info("{} thread", Thread.currentThread());
-        return tradesService.getProductInfo(productId);
+        log.info("{}", Thread.currentThread());
+        return tradeService.getProductInfo(productId);
     }
 }

@@ -1,5 +1,6 @@
-package com.techconnect.model;
+package com.techconnect.websockets;
 
+import com.techconnect.model.request.SubscribeMessage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
