@@ -35,7 +35,6 @@ public class MatchService {
         WebSocketClient client = new ReactorNettyWebSocketClient();
         Mono<Void> result = client.execute(URI.create(url),
                 (session) -> session.send(Mono.just(session.textMessage(matcherMessage)))
-                        .ignoreElement()
                         .thenMany(session.receive()
                                 .map(WebSocketMessage::getPayloadAsText)
                                 .log()
