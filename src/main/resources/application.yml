@@ -10,3 +10,21 @@ coinbase.message: '{"type": "subscribe","product_ids": ["BTC-USD","ETH-USD","LTC
 coinbase.matcher-message: '{"type": "subscribe","product_ids": ["BTC-USD","ETH-USD","LTC-USD"],"channels": ["matches"]}'
 
 application.websockets.enabled: true
+
+#management.endpoints.web.exposure.include: '*'
+#management.endpoint.metrics.enabled: true
+#management.endpoint.prometheus.enabled: true
+
+management:
+  server:
+    port: 8090
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: "/"
+      path-mapping:
+        prometheus: "metrics"
+  metrics:
+    tags:
+      application: techconnect-webflux
