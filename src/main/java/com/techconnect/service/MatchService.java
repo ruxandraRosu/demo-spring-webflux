@@ -42,10 +42,7 @@ public class MatchService {
                                 .mapNotNull(mappingResolver::mapStringToMatch)
                                 .map(mappingResolver::mapMatchToTrade)
                                 .flatMap(tradeService::enrichTrade)
-                                .flatMap(trade -> {
-                                    tradeService.publishMessage(trade);
-                                    return Mono.just(trade);
-                                })
+                                .doOnNext(tradeService::publishMessage)
                                 .doOnNext(tradeFlux::push)
                         )
                         .then()

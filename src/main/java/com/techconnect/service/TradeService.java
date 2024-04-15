@@ -21,7 +21,6 @@ public class TradeService {
     private final Stats emptyStats = new Stats();
 
 
-
     public Mono<Product> getProduct(String productId) {
         return webClient.get()
                 .uri("/products/" + productId)
@@ -47,10 +46,6 @@ public class TradeService {
                 .map(Trade.TradeBuilder::build);
     }
 
-    public void publishMessage(Trade trade) {
-         kafkaService.sendMessage(trade);
-    }
-
     public Mono<ProductInfo> getProductInfo(String productId) {
         Mono<Stats> stats = getProductStats(productId);
         Mono<Product> product = getProduct(productId);
@@ -59,7 +54,9 @@ public class TradeService {
                 .zipWith(product, ProductInfo.ProductInfoBuilder::product)
                 .zipWith(stats, ProductInfo.ProductInfoBuilder::stats)
                 .map(ProductInfo.ProductInfoBuilder::build);
+    }
 
-
+    public void publishMessage(Trade trade) {
+        kafkaService.sendMessage(trade);
     }
 }
