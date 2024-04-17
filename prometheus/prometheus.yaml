@@ -25,6 +25,6 @@ scrape_configs:
     metrics_path: /metrics
     scrape_interval: 3s
     static_configs:
-      - targets: [ 'host.docker.internal:8090' ]
+      - targets: [ 'host.docker.internal:8090', 'host.docker.internal:8070' ]
       - labels:
-          application: "TechConnect WebFlux App"
+          application: "TechConnect Spring App"
